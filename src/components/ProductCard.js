@@ -26,8 +26,6 @@ const ProductCard = (props) => {
             </div>
         </div>
       </Link>
-        
-
       
       <Card.Body>
         <Card.Title style={{textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'}}>
@@ -42,14 +40,15 @@ const ProductCard = (props) => {
           Some quick example text to build on the card title and make up the
           bulk of the card's content.
         </Card.Text>
+        
         <Button 
             onClick={() => addToCart()}
-            className={` ${theme ? 'bg-dark-primary text-black' : 'bg-light-primary text-light'} d-flex align-items-center m-auto border-0 `}//-----------------------------------------------GIIIIIIIIIIIIT
-        >
+            className={` ${theme ? 'bg-dark-primary text-black' : 'bg-light-primary text-light'} d-flex align-items-center m-auto border-0 `}>
              Add to Cart 
              <BsCartPlus size='1.1rem' 
              style={{position: 'relative', bottom: '1', right: '-3'}}/> 
              </Button>
+             
       </Card.Body>
       
     </Card>

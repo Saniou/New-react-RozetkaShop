@@ -28,17 +28,20 @@ const Header = () => {
     >
     <Container>
         
-        <Link to="/">
+        <Link to="/"
+        style={{textDecoration: 'none', border: 0}}>
         <Navbar.Brand  className={darkMode ? 'text-dark-primary' : 'text-light-primary'}>
         <img src={ImgLogo} className={darkMode ? 'bg-black-logo-darkMode' : 'bg-black-logo'} style={{marginRight: '10px'}} alt='/' />
-        {/* <GiElectricalSocket size="1.1rem" style={{position: 'relative', bottom: '2', right: '3'}}/> */}
-        <b style={{textDecoration: 'none', border: 0}}>ROZETKA</b>
+        <b>ROZETKA</b>
       </Navbar.Brand>
         </Link>
         
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ms-auto">
+          <Link to="login" className={`nav-link ${darkMode ? 'text-dark-primary' : 'text-light-primary'}`}>
+          Sign In
+          </Link>
           <Nav.Link
             className={darkMode ? 'text-dark-primary' : 'text-light-primary'}
             onClick={() => setDarkMode(!darkMode)}

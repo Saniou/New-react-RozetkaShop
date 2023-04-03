@@ -1,19 +1,19 @@
 .bg-black{
-  background-color: black;
+  background-color: #44B26F;;
 }
 
 .bg-black-logo{
-  background-color: blue;
+  background-color: black;
   border-radius: 50%;
 }
 
 .bg-black-logo-darkMode{
-  background-color: yellow;
+  background-color: black;
   border-radius: 50%;
 }
 
 .bg-light-black{
-  background-color: #262626 !important;
+  background-color: #133613 !important;
 }
 
 .text-black{
@@ -25,15 +25,15 @@
 }
 
 .bg-dark-primary{
-  background: #fcbc73 !important;
+  background: #44B26F !important;
 }
 
 .text-dark-primary{
-  color: #fcbc73
+  color: #44B26F;
 }
 
 .text-light-primary{
-  color: #fcbc73
+  color: #44B26F;
 }
 
 .bg-light{
@@ -41,7 +41,7 @@
 }
 
 .bg-light-2{
-  background: #dadcde;
+  background: #0db564;
 }
 
 .bg-light-primary{
@@ -50,4 +50,8 @@
 
 .text-light-primary{
   color: #191659 !important;
+}
+
+.react-tel-input input{
+  width: 100% !important;
 }
