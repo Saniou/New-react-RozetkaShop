@@ -7,6 +7,7 @@ import ProductCard from '../components/ProductCard'
 import {BiSearch} from 'react-icons/bi'
 
 const Home = () => {
+    
     const [theme] = useThemeHook()
     const [searchInput, setSearchInput] = useState('')
     const [productData, setProductData] = useState([])
@@ -51,8 +52,8 @@ const Home = () => {
                     data={productData}
                     renderResults={ results =>(
                         <Row className='justify-content-center'>
-                            {results.map((item, i)=>(
-                                    <ProductCard data={item}/>
+                            {results.map((item)=>(
+                                    <ProductCard key={item.id} data={item}/>
                                 ))}
                         </Row>
                     )
