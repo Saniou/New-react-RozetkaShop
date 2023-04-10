@@ -1,7 +1,6 @@
 import React, {useContext, useState, useEffect} from 'react'
 import {Container, Navbar, Nav} from 'react-bootstrap'
 import { ThemeContext } from '../GlobalComponents/ThemeProvider'
-import { GiElectricalSocket } from 'react-icons/gi'
 import { BiSun, BiMoon, BiCart } from 'react-icons/bi'
 import { Link } from '@reach/router'
 import { useCart } from 'react-use-cart'
@@ -39,6 +38,9 @@ const Header = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ms-auto">
+        <Link to="product-table" className={`nav-link ${darkMode ? 'text-dark-primary' : 'text-light-primary'}`}>
+          Product Table
+          </Link>
           <Link to="login" className={`nav-link ${darkMode ? 'text-dark-primary' : 'text-light-primary'}`}>
           Sign In
           </Link>

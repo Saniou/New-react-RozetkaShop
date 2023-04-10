@@ -1,17 +1,16 @@
 import React, {useState} from 'react'
-import {Container, Row, Col, Button, Form, Spinner } from 'react-bootstrap'
+import {Container, Row, Col, Button, Form, InputGroup } from 'react-bootstrap'
 import { useThemeHook } from '../GlobalComponents/ThemeProvider'
-import ImgLogo from '../Image/logo.png'
-import PhoneInput from 'react-phone-input-2'
 import { useNavigate } from '@reach/router'
+import axios from 'axios'
 
+import ImgLogo from '../Image/logo.png'
 import {Icon} from 'react-icons-kit';
 import {eye} from 'react-icons-kit/feather/eye';
 import {eyeOff} from 'react-icons-kit/feather/eyeOff';
+import {VscKey} from 'react-icons/vsc'
 
 const Register = () => {
-    const [loading, setLoading] = useState(false)
-    const [number, setNumber] = useState(null)
     const [theme] = useThemeHook()
     
     const navigate = useNavigate();
@@ -29,32 +28,35 @@ const Register = () => {
         }
     };
     
-    const [input, setInput] = useState(
+    const [user, setUser] = useState(
       {
       email: "", 
-      password: ""}
+      userName: "",
+      password: "",
+      rePassword: "",
+    }
       )
-
-    const submit = (e) => {
-      e.preventDefault();
-      localStorage.setItem("user", JSON.stringify(input))
-      setLoading(true);
-      alert('Register Success')
-      navigate("/login")
-    };
+      
+    const handleChange = (e) => {
+        const {name, value} = e.target
+        setUser({
+            ...user,
+            [name]: value
+        })
+    }
     
+    const register = (e) =>{
+        e.preventDefault();
+        const {userName, email, password, rePassword} = user
+        if(userName && email && password && (password === rePassword)){
+            axios.post("http://localhost:9003/register", user)
+            navigate("/login")
+            .then(res => console.log(res))
+        } else {
+            alert('invalid')
+        }
+    }
     
-    // const handleSubmit = (event)=>{
-    //     const form = event.currentTarget;
-    //     event.preventDefault();
-    //     const username = form.username;
-    //     const password = form.password;
-    //     const email = form.email;
-    //     const phoneNumber = form.phoneNumber;
-    //     if(username && password && email && phoneNumber){
-    //         setLoading(true);
-    //     }
-    // }
   return (
     
     <Container className='py-5 mt-5'>
@@ -69,59 +71,68 @@ const Register = () => {
                 <h1 style={{fontSize: '25px', position: 'relative', top: '5px'}}>ROZETKA</h1>
                 </div>
             </div>
-            <Form onSubmit={submit}
-                //onSubmit={handleSubmit}
+            <Form 
             style={{justifyContent: 'center'}}>    
                 <Row>
                     <Form.Group className='mb-3 mt-3 col-lg-6'>
                         <Form.Label>Email</Form.Label>
                         <Form.Control name='email' type="email" placeholder='Email' required 
-                        value={input.email}
-                        onChange={(e) => setInput({
-                            ...input,
-                            [e.target.name]: e.target.value
-                        })}
+                        value={user.email}
+                        onChange={handleChange}
                         />
                     </Form.Group>
                     <Form.Group className='mb-3 mt-3 col-lg-6'>
                         <Form.Label>User Name</Form.Label>
-                        <Form.Control name='username' type="text" placeholder='User Name' required />
+                        <Form.Control name='userName' type="text" placeholder='User Name'
+                        value={user.userName}
+                        onChange={handleChange}
+                        required />
                     </Form.Group>
-                    <Form.Group className='mb-3'>
-                        <PhoneInput country={'ua'} value={number}
-                        onChange={phone => setNumber(phone)} />
-                    </Form.Group>
-                    <Form.Group className='mb-3'>
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control name='password' type={type} placeholder='Password...' 
-                        required 
-                        value={input.password}
-                        onChange={(e) => setInput({
-                            ...input,
-                            [e.target.name]: e.target.value
-                        })}
-                        />
-                         <span className="OpenEyeRegister" style={{position: 'relative', cursor: 'pointer', right: '-300px', top: '-33px', }}  onClick={handleToggle}>
-                        <Icon className="EyeIcon" size='1.2rem' icon={icon}/>
+                <InputGroup className="mb-4" >
+                    <InputGroup.Text style={{width: '377px'}} >
+                    <InputGroup.Text >
+                        <VscKey size='1.2rem'/>
+                        </InputGroup.Text>
+                    <Form.Control 
+                    name="password" 
+                    placeholder='Password' 
+                    minLength={6} required
+                    type={type}
+                    value={user.password}
+                    onChange={handleChange}
+                    />
+                    <span className="OpenEyeLogin"  style={{cursor: 'pointer', margin: '10px', marginRight: '5px'}} onClick={handleToggle}>
+                    <Icon className="EyeIcon" size='1.1rem' icon={icon}/>
                     </span>
-                    </Form.Group>
+                    
+                    </InputGroup.Text>
+                </InputGroup>
+                
+                <InputGroup className="mb-4" >
+                    <InputGroup.Text style={{width: '377px'}} >
+                    <InputGroup.Text >
+                        <VscKey size='1.2rem'/>
+                        </InputGroup.Text>
+                    <Form.Control 
+                    name="rePassword" 
+                    placeholder='Re-Enter Password' 
+                    minLength={6} required
+                    type={type}
+                    value={user.rePassword}
+                    onChange={handleChange}
+                    />
+                    <span className="OpenEyeLogin"  style={{cursor: 'pointer', margin: '10px', marginRight: '5px'}} onClick={handleToggle}>
+                    <Icon className="EyeIcon" size='1.1rem' icon={icon}/>
+                    </span>
+                    
+                    </InputGroup.Text>
+                </InputGroup>
+                
                 </Row>
             
-                <Button type='submit' style={{border: 0}} disabled={loading}
-                className={`${theme ? 'bg-dark-primary text-black' : 'bg-light-primary'} m-auto d-block`}>
-                    {loading ? 
-                    <>
-                    <Spinner 
-                    as="span"
-                    animation='grow'
-                    size='sm'
-                    role='status'
-                    aria-hidden="true"
-                     />
-                     &nbsp;Loading...
-                    </> : 'Register'
-                    }
-                </Button>
+                <Button type='submit' style={{border: 0}} 
+                onClick={register}
+                className={`${theme ? 'bg-dark-primary text-black' : 'bg-light-primary'} m-auto d-block`}>Register</Button>
     
             </Form>
             

@@ -3,7 +3,7 @@ import {Button, Col, Container, Row} from 'react-bootstrap'
 import { useThemeHook } from '../GlobalComponents/ThemeProvider'
 import Lightbox from 'react-lightbox-component'
 import 'react-lightbox-component/build/css/index.css'
-import './productDetails.css'
+import './css/productDetails.css'
 import { useCart } from 'react-use-cart'
 
 const ProductDetails = (props) => {

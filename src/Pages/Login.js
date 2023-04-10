@@ -1,19 +1,18 @@
-import React, {useState, useEffect} from 'react'
-import {Container, Row, Col, Button, Form, Spinner, InputGroup} from 'react-bootstrap'
+import React, {useState} from 'react'
+import {Container, Row, Col, Button, Form, InputGroup} from 'react-bootstrap'
 import { useThemeHook } from '../GlobalComponents/ThemeProvider'
-import { Link, useNavigate } from '@reach/router'
+import { Link, navigate  } from '@reach/router'
+import axios from 'axios'
+
 import ImgLogo from '../Image/logo.png'
 import {AiOutlineUser} from 'react-icons/ai'
 import {VscKey} from 'react-icons/vsc'
-import axios from 'axios'
 import {Icon} from 'react-icons-kit'
 import {eye} from 'react-icons-kit/feather/eye'
 import {eyeOff} from 'react-icons-kit/feather/eyeOff'
 
-const Login = () => {
-    const [loading, setLoading] = useState(false);
+const Login = ({ setLoginUser}) => {
     const [theme] = useThemeHook();
-    const navigate = useNavigate();
     
     const [type, setType] = useState('password');
     const [icon, setIcon] = useState(eyeOff);
@@ -28,48 +27,29 @@ const Login = () => {
         }
     }
     
-    const [input, setInput] = useState({
+    const [user, setUser] = useState({
       email: "", 
       password: ""}
       )
-
-      const submit = (e) => {
-        e.preventDefault();
-        const logger = JSON.parse(localStorage.getItem("user"));
-        if(input.email === logger.email && input.password === logger.password) {
-          localStorage.setItem("login", true)
-          navigate("/") //------------------------------------------------------------------
-        } else {
-          alert("Login uncorrect")
-        }
-      };
+      
+      const handleChange = (e) => {
+        const {name, value} = e.target
+        setUser({
+            ...user,
+            [name]: value
+        })
+    }
     
-    // const handleSubmit = (event)=>{
-    //     const form = event.currentTarget;
-    //     event.preventDefault();
-    //     const username = form.username.value;
-    //     const password = form.password.value;
-    //     if(username && password){
-    //         setLoading(true);
-    //         fetch('https://fakestoreapi.com/auth/login',{
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body:JSON.stringify({
-    //                 username: username,
-    //                 password: password
-    //             })
-    //         }).then(res=>res.json())
-    //         .then(json=>sessionStorage.setItem("token", json.token))
-    //         .catch(error=> console.error(error))
-    //         .finally(()=>{
-    //             setLoading(false);
-    //             navigate('/', {replace: true})
-    //             alert('Login successfully');
-    //         })
-    //     }
-    // }
+    const login = (e) => {
+        e.preventDefault();
+        axios.post("http://localhost:9003/login", user)
+        .then(res => {
+            alert(res.data.message)
+            setLoginUser(res.data.user)
+            navigate("/")
+        })
+    }
+    
   return (
     <Container className='py-5 mt-5'>
         <Row className='justify-content-center mt-5'>
@@ -84,8 +64,6 @@ const Login = () => {
                 </div>
             </div>
             <Form 
-            onSubmit={submit}
-            // onSubmit={handleSubmit} 
             style={{justifyContent: 'center'
         }}>
                 <InputGroup className="mb-4 mt-5" >
@@ -94,49 +72,34 @@ const Login = () => {
                         <AiOutlineUser size='1.2rem'/>
                         </InputGroup.Text>
                     <Form.Control name="email" type="text" placeholder='Email' required
-                    value={input.email}
-                    onChange={(e) => setInput({
-                        ...input,
-                        [e.target.name]: e.target.value
-                    })}
+                    value={user.email}
+                    onChange={handleChange}
                     />
                    
                     </InputGroup.Text>
                 </InputGroup>
                 <InputGroup className="mb-4" >
-                    <InputGroup.Text style={{width: '377px'}}>
-                    <InputGroup.Text>
+                    <InputGroup.Text style={{width: '377px'}} >
+                    <InputGroup.Text >
                         <VscKey size='1.2rem'/>
                         </InputGroup.Text>
-                    <Form.Control name="password"
+                    <Form.Control name="password" 
                     placeholder='Password' minLength={6} required
                     type={type}
-                    value={input.password}
-                        onChange={(e) => setInput({
-                            ...input,
-                            [e.target.name]: e.target.value
-                        })}
+                    value={user.password}
+                    onChange={handleChange}
                     />
-                    
-                    </InputGroup.Text>
-                    <span className="OpenEyeLogin" style={{position: 'relative', cursor: 'pointer', right: '-290px', top: '-40px', }} onClick={handleToggle}>
-                        <Icon className="EyeIcon" icon={icon}/>
+                    <span className="OpenEyeLogin"  style={{cursor: 'pointer', margin: '10px', marginRight: '5px'}} onClick={handleToggle}>
+                    <Icon className="EyeIcon" size='1.1rem' icon={icon}/>
                     </span>
+                    </InputGroup.Text>
                 </InputGroup>
-                <Button type='submit' style={{border: 0}} disabled={loading}
+                
+                <Button type='submit' style={{border: 0,}} 
+                // disabled={loading}
+                onClick={login}
                 className={`${theme ? 'bg-dark-primary text-black' : 'bg-light-primary'} m-auto d-block`}>
-                    {loading ? 
-                    <>
-                    <Spinner 
-                    as="span"
-                    animation='grow'
-                    size='sm'
-                    role='status'
-                    aria-hidden="true"
-                     />
-                     &nbsp;Loading...
-                    </> : 'Login'
-                    }
+                    Login
                 </Button>
                 
                 <Form.Group className='mt-3 text-center'>

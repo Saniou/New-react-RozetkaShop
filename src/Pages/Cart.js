@@ -60,12 +60,6 @@ const Cart = () => {
                         <BsCartX size="1.1rem" style={{position: 'relative', bottom: '2', right: '3'}}/>
                         Clear Cart
                     </Button>
-                    <Button 
-                    className='m-2' variant='success'
-                    onClick={() => emptyCart()}>
-                        <BsCartCheck size="1.1rem" style={{position: 'relative', bottom: '2', right: '3'}}/>
-                        Clear Cart
-                    </Button>
                 </Col>
             </Row>
     }

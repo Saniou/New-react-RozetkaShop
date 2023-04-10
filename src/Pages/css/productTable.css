@@ -1,0 +1,45 @@
+.containerBtn{
+    position: absolute;
+    top: 0;
+    right: 50px;
+    
+}
+
+.modalBtnAdd{
+    margin-top: 100px;
+    position: relative;
+    width: 129px;
+    height: 52px;
+    border: 0;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16.5px;
+    color: #05BC52;
+    transition: 0.3s;
+    border-radius: 15px;
+}
+
+.modalBtnAdd:hover{
+    background: #000;
+    transition: 0.3s;
+}
+
+.addIcon{
+    position: relative;
+    top: -2px;
+}
+
+.contentContainer{
+    justify-content: center;
+    text-align: center;
+    margin-top: 170px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 77px;
+    
+    color: #FFFFFF;
+    
+}
