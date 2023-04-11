@@ -1,7 +1,7 @@
 import React from 'react'
 import './ModalAdd.css'
 
-const ModalAdd = ({active, setActive, children}) => {
+const ModalEdit = ({active, setActive, children}) => {
   return (
     <>
     <div className={active ? "modal active" : "modal"} onClick={() => setActive(false)}>
@@ -13,4 +13,4 @@ const ModalAdd = ({active, setActive, children}) => {
   )
 }
 
-export default ModalAdd
+export default ModalEdit

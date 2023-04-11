@@ -39,7 +39,49 @@
     font-weight: 700;
     font-size: 64px;
     line-height: 77px;
-    
     color: #FFFFFF;
-    
+}
+
+.tableProduct{
+    background: #24d680;
+    color: #726969;
+    width: 80%;
+    text-align: center;
+    border: 1px solid #000;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 19px;
+}
+
+.btnEditDelete{
+    border: 0;
+    background: inherit;
+    color: inherit
+}
+
+th{
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+  }
+
+th td:nth-child(odd) {
+    background-color: #24d680;
+}
+  
+th td:nth-child(even) {
+    background-color: #D9D9D9;
+}
+
+.even-row {
+    background-color: gray;
+    color: #FFFFFF;  
+  }
+  
+.odd-row {
+    background-color: #24d680;
 }

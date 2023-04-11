@@ -27,7 +27,7 @@ const ProductDetails = (props) => {
   <Container className='py-5'>
     <Row className='justify-content-center mt-5'>
       <Col className='p-0' xs={10} md={7} lg={5}>
-        <Lightbox 
+        <Lightbox onClick={(e) => e.stopPropagation()}
         images={[
           {
           src: productData.image,
